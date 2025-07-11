@@ -172,7 +172,7 @@ export class Tracker {
     // Compress based on size
     if (size > this._MAX_SIZE) {
       // Use async gzip
-      gzip(encoded, (err, compressed) => {
+      gzip(encoded, (err: any, compressed: any) => {
         if (err) {
           throw new Error("Compression error: " + err);
         }
