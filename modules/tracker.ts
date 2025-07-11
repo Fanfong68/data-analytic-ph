@@ -24,11 +24,9 @@ export class Tracker {
 
   /**
    * Initializes the tracker
-   * @param environment - The environment to use 1 for production & 2 for develop
-   * @param data - The data to use for init guid & queryParam
-   * GUID is used to identify the user
-   * QUERY_PARAM is used to send the query params to the server
-   * @returns {status: number, message: string, guid: string}
+   * @param environment The environment to use 1 for production & 2 for develop
+   * @param data The data to use for init guid & queryParam
+   * @returns Success status with message and guid
    */
   private _init(environment?: number, data?: TrackerInitData) {
     try {
@@ -48,10 +46,10 @@ export class Tracker {
 
   /**
    * Identifies a user in tracker analytics
-   * @param new_distinct_id - The new distinct id to identify the user
-   * @param userProps - The user properties to identify the user
-   * @throws {Error} If tracker is not initialized
-   * @throws {Error} If error occurs while identifying user
+   * @param new_distinct_id The new distinct id to identify the user
+   * @param userProps The user properties to identify the user
+   * @throws If tracker is not initialized
+   * @throws If error occurs while identifying user
    */
   //TODO: NEED ENHANCE identify function //
   private _identify(new_distinct_id: string, userProps: IdentifyEvent) {
@@ -83,9 +81,10 @@ export class Tracker {
    * Tracks an event in tracker analytics
    * @param event_name Optional event name (3 for expose,2 for pageview, 1 for click)
    * @param properties ClickEvent or PageViewEvent object containing event data
-   * @throws {Error} If tracker is not initialized
-   * @throws {Error} If error occurs while sending event
+   * @throws If tracker is not initialized
+   * @throws If error occurs while sending event
    */
+  //TODO: SEE IF PROPERTIES NEEDED TO ADD IN INTERFACE //
   private _send(event_name?: number, properties?: any) {
     try {
       if (!this._token || !this._apiLink) {
@@ -111,9 +110,9 @@ export class Tracker {
    * Also handles compression of the event by size
    * @param payload Event payload
    * @param retryCount Retry count (default is 0)
-   * @throws {Error} If error occurs after 3 retries
-   * @throws {Error} If error occurs while sending event
-   * @throws {Error} If error occurs while compressing event
+   * @throws If error occurs after 3 retries
+   * @throws If error occurs while sending event
+   * @throws If error occurs while compressing event
    */
   private _sendEvent(payload: any, retryCount: number = 0) {
     const encoded = strToU8(JSON.stringify(payload));
